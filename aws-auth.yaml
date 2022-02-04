@@ -1,0 +1,57 @@
+apiVersion: v1
+data:
+  mapRoles: |
+    - groups:
+      - system:bootstrappers
+      - system:nodes
+      rolearn: arn:aws:iam::827461279864:role/eksctl-mordor-nodegroup-spot-a-NodeInstanceRole-TU0U1VV6KX3Y
+      username: system:node:{{EC2PrivateDNSName}}
+    - groups:
+      - system:bootstrappers
+      - system:nodes
+      rolearn: arn:aws:iam::827461279864:role/eksctl-mordor-nodegroup-spot-b-NodeInstanceRole-6Y4M4T90E3YK
+      username: system:node:{{EC2PrivateDNSName}}
+    - groups:
+      - system:bootstrappers
+      - system:nodes
+      rolearn: arn:aws:iam::827461279864:role/eksctl-mordor-nodegroup-spot-c-NodeInstanceRole-VPL853RF1AL9
+      username: system:node:{{EC2PrivateDNSName}}
+  mapUsers: | 
+    - userarn: arn:aws:iam::827461279864:user/joao.oliveira
+      username: admin 
+      groups: 
+        - system:masters
+    - userarn: arn:aws:iam::827461279864:user/rafael.cardoso
+      username: admin 
+      groups: 
+        - system:masters
+    - userarn: arn:aws:iam::827461279864:user/andre.bernardino
+      username: admin 
+      groups: 
+        - system:masters
+    - userarn: arn:aws:iam::827461279864:user/gilberto.lima
+      username: admin 
+      groups: 
+        - system:masters
+    - userarn: arn:aws:iam::827461279864:user/giovanna.pelizario
+      username: admin 
+      groups: 
+        - system:masters
+    - userarn: arn:aws:iam::827461279864:user/gesiane.reis
+      username: admin 
+      groups: 
+        - system:masters
+    - userarn: arn:aws:iam::827461279864:user/felipe.jensen
+      username: admin 
+      groups: 
+        - system:masters
+    - userarn: arn:aws:iam::827461279864:user/anderson.lima
+      username: admin 
+      groups: 
+        - system:masters                                
+
+kind: ConfigMap
+metadata:
+
+  name: aws-auth
+  namespace: kube-system

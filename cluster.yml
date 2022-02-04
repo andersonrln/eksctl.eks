@@ -1,0 +1,14 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: neskaueks
+  region: us-east-1
+
+nodeGroups:
+  - name: ng-1
+    instanceType: a1.medium
+    desiredCapacity: 1
+  - name: ng-2
+    instanceType: c6g.medium
+    desiredCapacity: 1

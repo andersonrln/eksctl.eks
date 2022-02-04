@@ -1,0 +1,95 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+metadata:
+  name: prod-1
+  region: sa-east-1
+vpc:
+  clusterEndpoints:
+    publicAccess:  true
+    privateAccess: true
+  subnets:
+    private:
+      sa-east-1a: { id: subnet-6c887f0b }
+      sa-east-1b: { id: subnet-e479c692 }
+      sa-east-1c: { id: subnet-0b08d853 }
+    public:
+      sa-east-1a: { id: subnet-968a7df1 }
+      sa-east-1b: { id: subnet-a07dc2d6 }
+      sa-east-1c: { id: subnet-e40bdbbc }
+nodeGroups:
+  - name: spot-a
+    availabilityZones: ["sa-east-1a"]
+    instanceType: mixed
+    desiredCapacity: 3
+    privateNetworking: true
+    minSize: 1
+    maxSize: 5
+    instancesDistribution:
+      #maxPrice: 0.017
+      instanceTypes: ["c5.xlarge", "c5d.xlarge","c4.xlarge"] # At least two instance types should be specified
+      onDemandBaseCapacity: 0
+      onDemandPercentageAboveBaseCapacity: 0
+      spotInstancePools: 3
+    labels:
+      cluster: prod-1
+      type: "spot"
+    ssh: # use existing EC2 key
+      publicKeyName: easy-keypair-dev
+    iam:
+      withAddonPolicies:
+        imageBuilder: true
+        autoScaler: true
+        ebs: true
+        efs: true
+        cloudWatch: true
+
+  - name: spot-b
+    availabilityZones: ["sa-east-1b"]
+    instanceType: mixed
+    desiredCapacity: 3
+    privateNetworking: true
+    minSize: 1
+    maxSize: 5
+    instancesDistribution:
+      #maxPrice: 0.017
+      instanceTypes: ["c5.xlarge", "c5d.xlarge","c4.xlarge"] # At least two instance types should be specified
+      onDemandBaseCapacity: 0
+      onDemandPercentageAboveBaseCapacity: 0
+      spotInstancePools: 3
+    labels:
+      cluster: prod-1
+      type: "spot"
+    ssh: # use existing EC2 key
+      publicKeyName: easy-keypair-dev
+    iam:
+      withAddonPolicies:
+        imageBuilder: true
+        autoScaler: true
+        ebs: true
+        efs: true
+        cloudWatch: true
+  - name: spot-c
+    availabilityZones: ["sa-east-1c"]
+    instanceType: mixed
+    desiredCapacity: 3
+    privateNetworking: true
+    minSize: 1
+    maxSize: 5
+    instancesDistribution:
+      #maxPrice: 0.017
+      instanceTypes: ["c5.xlarge", "c5.2xlarge","c5d.xlarge"] # At least two instance types should be specified
+      onDemandBaseCapacity: 0
+      onDemandPercentageAboveBaseCapacity: 0
+      spotInstancePools: 3
+    labels:
+      cluster: prod-1
+      type: "spot"
+    ssh: # use existing EC2 key
+      publicKeyName: easy-keypair-dev
+    iam:
+      withAddonPolicies:
+        imageBuilder: true
+        autoScaler: true
+        ebs: true
+        efs: true
+        cloudWatch: true
